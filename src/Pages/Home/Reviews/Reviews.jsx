@@ -15,7 +15,7 @@ import Container from '../../../Components/Container';
 
 const Reviewa = ({reviewsPromice}) => {
     const reviews = use(reviewsPromice);
-        console.log(reviews);
+        // console.log(reviews);
     
     return (
         <>
