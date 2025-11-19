@@ -3,9 +3,9 @@ import logo from '../assets/logo.png';
 
 const Logo = () => {
     return (
-        <div className='items-center  p-2'>
-            <img src={logo} alt="Logo" />
-            <h2 className='text-2xl -mt-4'>BanglaExpress</h2>
+        <div className='flex flex-col items-center p-2'>
+            <a className='text-xl  m-4 '><img className='w-30 h-20' src={logo} alt="Logo" /></a>
+            <h2 className='text-2xl text-primary -mt-7'>BanglaExpress</h2>
         </div>
     );
 };

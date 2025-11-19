@@ -1,16 +1,23 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../Layout/RootLayout";
 import Home from "../Pages/Home/Home/Home";
+import Coverage from "../Pages/Coverage/Coverage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    children:[
-         {
+    children:
+    [
+     {
         index:true,
-        element: <Home />
+       Component: Home,
+    },
+    {
+      path: '/Coverage',
+      Component: Coverage,
+      loader: () => fetch('/serviceCentars.json').then(res => res.json()),
     }
-]
+    ]
   },
 ]);

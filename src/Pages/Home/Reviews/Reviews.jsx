@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 // import './styles.css';
 
 // import required modules
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
 import ReviewCard from './ReviewCard';
 import Container from '../../../Components/Container';
 
@@ -26,19 +26,25 @@ const Reviewa = ({reviewsPromice}) => {
                 <p className='text-center'>Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!</p>
             </div>
       <Swiper
+        loop ={true}
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={3}
         coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
+          rotate: 30,
+          stretch: '50%',
+          depth: 200,
           modifier: 1,
+          scale: 1,
           slideShadows: true,
         }}
+        autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+        }}
         pagination={true}
-        modules={[EffectCoverflow, Pagination]}
+        modules={[EffectCoverflow, Pagination, Autoplay]}
         className="mySwiper mt-14"
       >
         {
