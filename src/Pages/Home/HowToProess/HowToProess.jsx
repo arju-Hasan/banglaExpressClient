@@ -35,7 +35,7 @@ const HowToProess = () => {
 
                 <div className='bg-{bgimg} mx-auto rounded-2xl m-10 w-7/8 h-100'>
                 <img src={bgimg} alt="bgimg" />
-                <div className='absulet -mt-90 ml-20 space-y-10'>
+                <div className='absulet -mt-80 ml-20 space-y-10'>
                     <h2 className='text-2xl font-bold text-white'>Merchant and Customer Satisfaction <br /> is Our First Priority </h2>
                     <p className='text-white'>We offer the lowest delivery charge with the highest value along with <br /> 100% safety of your product. Pathao courier delivers your parcels in every <br /> corner of Bangladesh right on time.</p>
                     <button className='btn rounded-full btn-secondary border-2 border-secondary text-accent y m-2 hover:btn-accent hover:text-secondary'>Become a Merchant</button>
