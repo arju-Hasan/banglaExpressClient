@@ -8,6 +8,7 @@ import Error404 from "../Pages/Error404/Error404";
 import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
+import ForgotPassword from "../Pages/Auth/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "Forgot",
+        Component: ForgotPassword,
       }
     ]
   },

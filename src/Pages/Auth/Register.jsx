@@ -1,6 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../Hooks/UseAuth';
+import { Link } from 'react-router';
+import { LuCircleUserRound } from 'react-icons/lu';
+import SocialLogin from './SocialLogin/SocialLogin';
 
 const Register = () => {
 
@@ -9,7 +12,7 @@ const Register = () => {
     
     const handelRegister = (data)  => {
         console.log('after register data', data);
-        registerUser(data.email, data.password)
+        registerUser(data.email, data.password, data.name)
         .then(result => {
             console.log(result.user);
         })
@@ -18,19 +21,30 @@ const Register = () => {
         })
     }
     return (
-        <div>
+        <div className='p-7 md:p-10'>
+            <div className='grid gap-2 mb-2'>
+                <h2 className='text-4xl text-primary'>Create an Account</h2>
+                <a href="" className=''>Login with ZapShift</a>
+                 <LuCircleUserRound className='text-primary text-5xl' />
+            </div>
             <div>
            <form onSubmit={handleSubmit(handelRegister)}>
              <fieldset className="fieldset">
+                   {/* name */}
+            <label className="label">Name</label>
+            <input type="email" {...register("name", {required:true})} className="input w-full" placeholder="Arju Hasan" />
+            {errors.name?.type==='required' && (
+                <p className='text-red-500'>Name is required</p>
+            )}
                 {/* email */}
             <label className="label">Email</label>
-            <input type="email" {...register("email", {required:true})} className="input" placeholder="Email" />
+            <input type="email" {...register("email", {required:true})} className="input w-full" placeholder="Email" />
             {errors.email?.type==='required' && (
                 <p className='text-red-500'>Email name is required</p>
             )}
             {/* password */}
             <label className="label">Password</label>
-            <input type="password" {...register("password", {required:true, minLength: 6})} className="input" placeholder="Password" />
+            <input type="password" {...register("password", {required:true, minLength: 6})} className="input w-full" placeholder="Password" />
             {errors.password?.type==='required' && (
                 <p className='text-red-500'>Password name is required</p>
             )}
@@ -38,15 +52,14 @@ const Register = () => {
               errors.password?.type==='minLength' && (
             <p className='text-red-500'>Password must be 6 characters or longer</p> )             
             }
-             {/* {
-              errors.password?.type==='pattern' && (
-            <p className='text-red-500'>upercase,lowercase, number & spachal characters</p> )             
-            } */}
+             
 
-            <div><a className="link link-hover">Forgot password?</a></div>
-            <button className="btn btn-neutral mt-4">Register Now</button>
+           
+            <button className="btn btn-primary mt-4">Register Now</button>
             </fieldset>
            </form>
+           <p className='m-4'>You have any account? <Link to="/Login"><span className='text-primary'>Login</span></Link></p>
+           <SocialLogin />
         </div>
         </div>
     );

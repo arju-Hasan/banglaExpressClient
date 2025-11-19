@@ -1,6 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../Hooks/UseAuth';
+import { Link } from 'react-router';
+import SocialLogin from './SocialLogin/SocialLogin';
+
 
 
 const Login = () => {
@@ -19,19 +22,23 @@ const Login = () => {
         })
     }
     return (
-        <div>
+        <div className='p-7 md:p-10'>
+            <div className='grid gap-2 mb-2'>
+                <h2 className='text-4xl text-primary'>Welcome Back</h2>
+                <a href="" className=''>Login with ZapShift</a>                
+            </div>
             <div>
            <form onSubmit={handleSubmit(handelLogin)}>
              <fieldset className="fieldset">
                 {/* email */}
             <label className="label">Email</label>
-            <input type="email" {...register("email", {required:true})} className="input" placeholder="Email" />
+            <input type="email" {...register("email", {required:true})} className="input w-full" placeholder="Arju3h@gmail.com" />
             {errors.email?.type==='required' && (
                 <p className='text-red-500'>Email name is required</p>
             )}
             {/* password */}
             <label className="label">Password</label>
-            <input type="password" {...register("password", {required:true, minLength: 6})} className="input" placeholder="Password" />
+            <input type="password" {...register("password", {required:true, minLength: 6})} className="input w-full" placeholder="Password" />
             {errors.password?.type==='required' && (
                 <p className='text-red-500'>Password name is required</p>
             )}
@@ -44,10 +51,12 @@ const Login = () => {
             <p className='text-red-500'>upercase,lowercase, number & spachal characters</p> )             
             } */}
 
-            
-            <button className="btn btn-neutral mt-4">Login</button>
+            <Link to="/Forgot" className='hover:text-primary underline'>Forget Password?</Link>
+            <button className="btn btn-primary mt-4">Login</button>
             </fieldset>
            </form>
+           <p className='m-4'>Don’t have any account? <Link to="/Register"><span className='text-primary'>Register</span></Link></p>
+          <SocialLogin />
         </div>
         </div>
     );

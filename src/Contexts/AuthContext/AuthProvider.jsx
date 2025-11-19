@@ -1,21 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithPopup, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
+
 import { auth } from '../../Firebase/Firebase.init';
-// import { createUserWithEmailAndPassword } from 'firebase/auth/cordova';
+
+
+
+const googleProvider = new GoogleAuthProvider();
+
 
 const AuthProvider = ({children}) => {
+    const [user, setUser] = useState(null);
+    const [loding, setLoding] = useState(true)
+
+    
 
     const registerUser = (email, password,) =>{
+        setLoding(true);
         return createUserWithEmailAndPassword(auth, email, password,)
     }
     const singinUser = (email, password,) =>{
+        setLoding(true);
         return signInWithEmailAndPassword (auth, email, password,)
+    }
+    const singinGoogle = () => {
+        setLoding(true);
+        return signInWithPopup (auth, googleProvider)
     }
        
     const Authinfo = {
+        loding,
+        user,
+        setUser,
         registerUser,
         singinUser,
+        singinGoogle,
 
     }
 

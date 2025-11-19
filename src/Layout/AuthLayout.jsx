@@ -11,11 +11,11 @@ const AuthLayout = () => {
             <div className='flex justify-start w-30 '>
                 <Logo></Logo>
             </div>
-            <div className='flex flex-wrap gap-4 justify-center items-center p-4'>
-                <div className='flex-1'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-center p-4'>
+                <div className='col-span-1 order-2 md:order-1'>
                     <Outlet></Outlet>
                 </div>
-                <img className='flex-1' src={loginImg} alt="" />
+                <img className='col-span-1 order-1 md:order-2' src={loginImg} alt="" />
                 
             </div>
             </Container>
