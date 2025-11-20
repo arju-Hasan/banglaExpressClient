@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../Hooks/UseAuth';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin/SocialLogin';
 
 
@@ -10,12 +10,18 @@ const Login = () => {
 
     const {register, handleSubmit,  formState:{ errors },} = useForm();
     const { singinUser,} = UseAuth();
+    const location = useLocation();
+    // console.log(location);
+    const Navigate = useNavigate();
+    // console.log(Navigate);
     
     const handelLogin = (data)  => {
-        console.log('after login data', data);
+        // console.log('after login data', data);
+
          singinUser(data.email, data.password)
         .then(result => {
-            console.log(result.user);
+            // console.log(result.user);
+            Navigate(location?.state || "/")
         })
         .catch(error =>{
             console.log(error);
@@ -46,17 +52,15 @@ const Login = () => {
               errors.password?.type==='minLength' && (
             <p className='text-red-500'>Password must be 6 characters or longer</p> )             
             }
-             {/* {
-              errors.password?.type==='pattern' && (
-            <p className='text-red-500'>upercase,lowercase, number & spachal characters</p> )             
-            } */}
-
+             
             <Link to="/Forgot" className='hover:text-primary underline'>Forget Password?</Link>
             <button className="btn btn-primary mt-4">Login</button>
             </fieldset>
            </form>
-           <p className='m-4'>Don’t have any account? <Link to="/Register"><span className='text-primary'>Register</span></Link></p>
+           <p className='m-4'>Don’t have any account? <Link state={location.state} to="/Register"><span className='text-primary'>Register</span></Link></p>
+           {/* sociall login */}
           <SocialLogin />
+
         </div>
         </div>
     );

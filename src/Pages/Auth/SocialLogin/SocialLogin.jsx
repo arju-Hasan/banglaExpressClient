@@ -1,22 +1,25 @@
 import React from 'react';
 import UseAuth from '../../../Hooks/UseAuth';
+import { useLocation, useNavigate } from 'react-router';
 
 const SocialLogin = () => {
 
     const {singinGoogle} =UseAuth();
+     const location = useLocation();
+    console.log(location);
+    const Navigate = useNavigate();
+    console.log(Navigate);
 
     const handelGooglesingIn = () =>{
         singinGoogle()
         .then(result=>{
             console.log("After singin",  result);
+            Navigate(location?.state || "/")
         })
         .catch(error=>{
             console.log(error);
         })
     }
-
-
-
     return (
         <div className='flex flex-col gap-4 mt-4'>
             
@@ -33,4 +36,9 @@ const SocialLogin = () => {
 };
 
 export default SocialLogin;
+
+//  const location = useLocation();
+//     console.log(location);
+//     const Navigate = useNavigate();
+//     console.log(Navigate);
 

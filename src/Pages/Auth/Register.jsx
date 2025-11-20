@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../Hooks/UseAuth';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { LuCircleUserRound } from 'react-icons/lu';
 import SocialLogin from './SocialLogin/SocialLogin';
 import axios from 'axios';
@@ -11,6 +11,9 @@ const Register = () => {
 
     const {register, handleSubmit,  formState:{ errors },} = useForm();
     const {registerUser, userUpdateProfile} = UseAuth();
+    const location = useLocation();
+    const Navigate = useNavigate();
+    
     
     const handelRegister = (data)  => {
         console.log('after register data', data.image);
@@ -23,7 +26,7 @@ const Register = () => {
             // store profile image
             const formData = new FormData();
             formData.append("image", ProfileImg)
-            
+
             // sent user profile to store
             const Image_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_Key}`
             axios.post(Image_Api_Url, formData)
@@ -37,8 +40,9 @@ const Register = () => {
                 }
                 userUpdateProfile(userProfile)
                 .then(() => {
-                    console.log("user profile update done");
+                    // console.log("user profile update done");
                     toast.success('user profile update done')
+                     Navigate(location?.state || "/")
                     })
                 .catch(error =>{
                 console.log(error);
@@ -93,7 +97,7 @@ const Register = () => {
             <button className="btn btn-primary mt-4">Register Now</button>
             </fieldset>
            </form>
-           <p className='m-4'>You have any account? <Link to="/Login"><span className='text-primary'>Login</span></Link></p>
+           <p className='m-4'>You have any account? <Link state={location.state} to="/Login"><span className='text-primary'>Login</span></Link></p>
            <SocialLogin />
         </div>
         </div>

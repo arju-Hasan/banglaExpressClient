@@ -5,11 +5,12 @@ import img1 from "../../../assets/banner/banner1.png";
 import img2 from "../../../assets/banner/banner2.png";
 import img3 from "../../../assets/banner/banner3.png";
 import { Carousel } from 'react-responsive-carousel';
+import { Link } from 'react-router';
 
 const Banner = () => {
     const button = <>
-        <button className='btn btn-secondary btn-warning mr-5'>Track Your Parcel</button>
-         <button className='btn btn-primary btn-info'>Be A Rider</button>
+        <Link className='btn btn-secondary btn-warning mr-5'>Track Your Parcel</Link>
+         <Link to="/bearider" className='btn btn-primary btn-info'>Be A Rider</Link>
     </>
     return (
         <Container>
