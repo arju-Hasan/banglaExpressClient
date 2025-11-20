@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../Hooks/UseAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin/SocialLogin';
+import { Eye, EyeOff } from 'lucide-react';
 
 
 
@@ -10,10 +11,8 @@ const Login = () => {
 
     const {register, handleSubmit,  formState:{ errors },} = useForm();
     const { singinUser,} = UseAuth();
-    const location = useLocation();
-    // console.log(location);
+    const location = useLocation(); 
     const Navigate = useNavigate();
-    // console.log(Navigate);
     
     const handelLogin = (data)  => {
         // console.log('after login data', data);
@@ -33,8 +32,10 @@ const Login = () => {
   Navigate("/forgot", { state: { email } });
 };
 
-
-
+const [showPassword, setShowPassword] = useState(false); 
+ const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
 
     return (
@@ -54,7 +55,23 @@ const Login = () => {
             )}
             {/* password */}
             <label className="label">Password</label>
-            <input type="password" {...register("password", {required:true, minLength: 6})} className="input w-full" placeholder="Password" />
+            <div className='relative'>
+                <input 
+                type={showPassword ? "text" : "password"} 
+                {...register("password", {required:true, minLength: 6})} className="input w-full" 
+                placeholder="Password" />
+                 <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-10"
+              >
+                {showPassword ? (
+                  <Eye />
+                ) : (
+                  <EyeOff />
+                )}
+              </button>
+            </div>
             {errors.password?.type==='required' && (
                 <p className='text-red-500'>Password name is required</p>
             )}

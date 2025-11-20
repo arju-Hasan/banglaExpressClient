@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../Hooks/UseAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
@@ -6,6 +6,8 @@ import { LuCircleUserRound } from 'react-icons/lu';
 import SocialLogin from './SocialLogin/SocialLogin';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Eye, EyeOff } from 'lucide-react';
+
 
 const Register = () => {
 
@@ -14,6 +16,11 @@ const Register = () => {
     const location = useLocation();
     const Navigate = useNavigate();
     
+
+    const [showPassword, setShowPassword] = useState(false); 
+     const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+      };
     
     const handelRegister = (data)  => {
         console.log('after register data', data.image);
@@ -83,7 +90,25 @@ const Register = () => {
             )}
             {/* password */}
             <label className="label">Password</label>
-            <input type="password" {...register("password", {required:true, minLength: 6})} className="input w-full" placeholder="Password" />
+            <div className='relative'>
+                  <input 
+                  type={showPassword ? "text" : "password"}  
+                  {...register("password", {required:true, minLength: 6})}
+                   className="input w-full"
+                    placeholder="Password" />
+                   <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-10"
+              >
+                {showPassword ? (
+                  <Eye />
+                ) : (
+                  <EyeOff />
+                )}
+              </button>
+            </div>
+          
             {errors.password?.type==='required' && (
                 <p className='text-red-500'>Password name is required</p>
             )}

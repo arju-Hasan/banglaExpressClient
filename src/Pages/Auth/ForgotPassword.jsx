@@ -24,8 +24,8 @@ const ForgotPassword = () => {
  
      sendPasswordResetEmail(auth, email)
        .then(() => {
-         toast.success("Password reset email sent!");
-        //  window.open("https://mail.google.com/mail", "_blank");
+         toast.success("Password reset email sent! chake your inbox or spame");
+         window.open("https://mail.google.com/mail/u/0/#spam", "_blank");
        })
        .catch((error) => {
          setError(error.code);
