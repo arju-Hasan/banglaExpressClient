@@ -3,9 +3,22 @@ import React from "react";
 import Logo from "../../../../Components/Logo";
 import Container from "../../../../Components/Container";
 import { Link, NavLink } from "react-router";
+import UseAuth from "../../../../Hooks/UseAuth";
 ;
 
 const Navbar = () => {
+
+
+  const {user, logOut} = UseAuth();
+
+ const HandelLogOut =() => {
+  logOut()
+  .then()
+  .catch(error =>{
+    console.log(error);
+  })
+ }
+
 
   const navItems = [
     { to: "/services", label: "Services" },
@@ -64,7 +77,11 @@ const Navbar = () => {
 
           {/* Right Button */}
           <div className="navbar-end">
-            <a className="btn btn-primary text-white">Track Parcel</a>
+            {
+              user? <Link onClick={HandelLogOut} to="login" className="btn btn-primary">LogOut</Link> : 
+              <Link to="login" className="btn btn-primary">Login</Link>
+            }
+            <Link to="/beRider" className="btn btn-secondary text-black mx-4">Be a Rider</Link>
           </div>
 
         </div>
