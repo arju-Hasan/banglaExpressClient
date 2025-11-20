@@ -4,18 +4,47 @@ import UseAuth from '../../Hooks/UseAuth';
 import { Link } from 'react-router';
 import { LuCircleUserRound } from 'react-icons/lu';
 import SocialLogin from './SocialLogin/SocialLogin';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Register = () => {
 
     const {register, handleSubmit,  formState:{ errors },} = useForm();
-    const {registerUser,} = UseAuth();
+    const {registerUser, userUpdateProfile} = UseAuth();
     
     const handelRegister = (data)  => {
-        console.log('after register data', data.image[0]);
+        console.log('after register data', data.image);
+        const ProfileImg = data.image[0];
+
         registerUser(data.email, data.password, data.name)
         .then(result => {
             console.log(result.user);
-        })
+
+            // store profile image
+            const formData = new FormData();
+            formData.append("image", ProfileImg)
+            
+            // sent user profile to store
+            const Image_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_Key}`
+            axios.post(Image_Api_Url, formData)
+            .then( res =>{
+                console.log("After image uploding", res.data.data.display_url);
+
+                // update user profile fairbase
+                const userProfile = {
+                    displayName : data.name,
+                    photoURL: res.data.data.display_url,
+                }
+                userUpdateProfile(userProfile)
+                .then(() => {
+                    console.log("user profile update done");
+                    toast.success('user profile update done')
+                    })
+                .catch(error =>{
+                console.log(error);
+                 })
+            })
+          })        
         .catch(error =>{
             console.log(error);
         })
@@ -38,8 +67,8 @@ const Register = () => {
             )}
             {/*User Photo */}
              <label className="label">Profile Image</label>
-            <input type="file" {...register("file", {required:true})} className="input file-input w-full"/>
-            {errors.file?.type==='required' && (
+            <input type="file" {...register("image", {required:true})} className="input file-input w-full"/>
+            {errors.image?.type==='required' && (
                 <p className='text-red-500'>image is required</p>
             )}
                 {/* email */}
