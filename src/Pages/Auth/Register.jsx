@@ -11,7 +11,7 @@ const Register = () => {
     const {registerUser,} = UseAuth();
     
     const handelRegister = (data)  => {
-        console.log('after register data', data);
+        console.log('after register data', data.image[0]);
         registerUser(data.email, data.password, data.name)
         .then(result => {
             console.log(result.user);
@@ -32,9 +32,15 @@ const Register = () => {
              <fieldset className="fieldset">
                    {/* name */}
             <label className="label">Name</label>
-            <input type="email" {...register("name", {required:true})} className="input w-full" placeholder="Arju Hasan" />
+            <input type="text" {...register("name", {required:true})} className="input w-full" placeholder="Arju Hasan" />
             {errors.name?.type==='required' && (
                 <p className='text-red-500'>Name is required</p>
+            )}
+            {/*User Photo */}
+             <label className="label">Profile Image</label>
+            <input type="file" {...register("file", {required:true})} className="input file-input w-full"/>
+            {errors.file?.type==='required' && (
+                <p className='text-red-500'>image is required</p>
             )}
                 {/* email */}
             <label className="label">Email</label>

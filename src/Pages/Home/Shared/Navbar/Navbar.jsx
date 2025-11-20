@@ -78,10 +78,10 @@ const Navbar = () => {
           {/* Right Button */}
           <div className="navbar-end">
             {
-              user? <Link onClick={HandelLogOut} to="login" className="btn btn-primary">LogOut</Link> : 
-              <Link to="login" className="btn btn-primary">Login</Link>
+              user? <Link onClick={HandelLogOut} to="login" className="btn btn-primary hover:bg-accent">LogOut</Link> : 
+              <Link to="login" className="btn btn-primary hover:bg-accent">Login</Link>
             }
-            <Link to="/beRider" className="btn btn-secondary text-black mx-4">Be a Rider</Link>
+            <Link to="/bearider" className="btn btn-secondary hover:text-white hover:bg-accent text-accent mx-4">Be a Rider</Link>
           </div>
 
         </div>
