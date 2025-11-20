@@ -6,9 +6,9 @@ const SocialLogin = () => {
 
     const {singinGoogle} =UseAuth();
      const location = useLocation();
-    console.log(location);
+    // console.log(location);
     const Navigate = useNavigate();
-    console.log(Navigate);
+    // console.log(Navigate);
 
     const handelGooglesingIn = () =>{
         singinGoogle()

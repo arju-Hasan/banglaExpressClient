@@ -20,13 +20,23 @@ const Login = () => {
 
          singinUser(data.email, data.password)
         .then(result => {
-            // console.log(result.user);
+            console.log(result.user);
             Navigate(location?.state || "/")
         })
         .catch(error =>{
             console.log(error);
         })
     }
+
+    const handleForgotPassword = () => {
+  const email = document.querySelector('input[name="email"]').value;
+  Navigate("/forgot", { state: { email } });
+};
+
+
+
+
+
     return (
         <div className='p-7 md:p-10'>
             <div className='grid gap-2 mb-2'>
@@ -53,7 +63,7 @@ const Login = () => {
             <p className='text-red-500'>Password must be 6 characters or longer</p> )             
             }
              
-            <Link to="/Forgot" className='hover:text-primary underline'>Forget Password?</Link>
+            <p onClick={handleForgotPassword} className='hover:text-primary underline'>Forget Password?</p>
             <button className="btn btn-primary mt-4">Login</button>
             </fieldset>
            </form>

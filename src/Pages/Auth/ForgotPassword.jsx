@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
+import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { auth } from '../../Firebase/Firebase.init';
 
 const ForgotPassword = () => {
  const {register,   formState:{ errors },} = useForm();
-//     const { singinUser,} = UseAuth();
-//     
-//     const handelLogin = (data)  => {
-//         console.log('after login data', data);
-//          singinUser(data.email, data.password)
-//         .then(result => {
-//             console.log(result.user);
-//         })
-//         .catch(error =>{
-//             console.log(error);
-//         })
-//     }
+
+ const [error, setError] = useState("");
+//    const { auth } = useContext(AuthContext);
+//    console.log(auth);
+ 
+ 
+   const location = useLocation();
+   const prefilledEmail = location.state?.email || ""; 
+ 
+   const handleReset = (e) => {
+     e.preventDefault();
+     const form = e.target;
+     const email = form.email.value;
+ 
+     sendPasswordResetEmail(auth, email)
+       .then(() => {
+         toast.success("Password reset email sent!");
+        //  window.open("https://mail.google.com/mail", "_blank");
+       })
+       .catch((error) => {
+         setError(error.code);
+         toast.error(`${error.code}: ${error.message}`);
+       });
+   };
+
+
     return (
         <div className='p-7 md:p-10'>
             <div className='grid gap-2 mb-2'>
@@ -23,17 +41,22 @@ const ForgotPassword = () => {
                 <a href="" className=''>Enter your email address and we'll send you a reset link.</a>                
             </div>
             <div>
-           <form>
+           <form onSubmit={handleReset}>
              <fieldset className="fieldset">
                 {/* email */}
             <label className="label">Email</label>
-            <input type="email" {...register("email", {required:true})} className="input w-full" placeholder="Arju3h@gmail.com" />
+            <input 
+            type="email" {...register("email", {required:true})} 
+            className="input w-full" 
+            placeholder="Arju3h@gmail.com"
+            defaultValue={prefilledEmail} 
+             />
             {errors.email?.type==='required' && (
                 <p className='text-red-500'>Email name is required</p>
             )}
           
-
-            <button className="btn btn-primary mt-4">Send</button>
+            {error && <p className="text-red-400 text-xs">{error}</p>}
+            <button className="btn btn-primary mt-4">Reset Password</button>
             </fieldset>
            </form>
            <p className='m-4'>Remember your password? <Link to="/Login"><span className='text-primary'>Login</span></Link></p>
