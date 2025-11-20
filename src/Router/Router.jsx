@@ -12,6 +12,7 @@ import ForgotPassword from "../Pages/Auth/ForgotPassword";
 // import PrivateRout from "./PrivateRoute";
 import Rider from "../Pages/Rider/Rider";
 import PrivateRoute from "./PrivateRoute";
+import SendParcle from "../Pages/SendParcle/SendParcle";
 
 export const router = createBrowserRouter([
   {
@@ -38,8 +39,11 @@ export const router = createBrowserRouter([
     },
     {
       path: "/bearider",
-      // Component: Rider ,
-      element: <PrivateRoute> <Rider /></PrivateRoute>
+      element: <PrivateRoute> <Rider /></PrivateRoute>,
+    },
+    {
+      path: "/send-parcle",
+      element: <PrivateRoute><SendParcle /></PrivateRoute>
     }
     ]
   },

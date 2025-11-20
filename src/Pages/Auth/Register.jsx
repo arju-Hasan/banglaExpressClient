@@ -65,7 +65,7 @@ const Register = () => {
             <div className='grid gap-2 mb-2'>
                 <h2 className='text-4xl text-primary'>Create an Account</h2>
                 <a href="" className=''>Login with ZapShift</a>
-                 <LuCircleUserRound className='text-primary text-5xl' />
+                 {/* <LuCircleUserRound className='text-primary text-5xl' /> */}
             </div>
             <div>
            <form onSubmit={handleSubmit(handelRegister)}>

@@ -1,5 +1,3 @@
-
-import React from "react";
 import Logo from "../../../../Components/Logo";
 import Container from "../../../../Components/Container";
 import { Link, NavLink } from "react-router";
@@ -26,6 +24,7 @@ const Navbar = () => {
     { to: "/aboutus", label: "About Us" },
     { to: "/pricing", label: "Pricing" },
     { to: "/bearider", label: "Be a Rider" },
+    { to: "/send-parcle", label: "Send Parcl" },
   ];
 
   
@@ -64,7 +63,7 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal gap-3 px-1">
+            <ul className="menu menu-horizontal gap-3 px-0">
               {navItems.map((item) => (
                 <li key={item.to}>
                   <NavLink to={item.to} className={navLinkClasses}>
