@@ -1,14 +1,16 @@
 import React from 'react';
 import Container from '../../Components/Container';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
-
-const SendParcle = () => {
-    const {register, handleSubmit, formState: { error }, watch, } = useForm();
+import Swal from 'sweetalert2'
+ 
+export  const SendParcle = () => {
+    const {register, handleSubmit, formState: { error }, control, } = useForm();
     const serviceCentars = useLoaderData();     
     const regionsDup = serviceCentars.map(c => c.region);
     const regions = [...new Set(regionsDup)];
-    const senderRegions = watch('senderRegions')
+    const senderRegions = useWatch({control, name:'senderRegions'});
+    const receiverRegions = useWatch({control, name:'receiverRegions'});
 
     const districtByRegions = region => {
         const regionDistricts = serviceCentars.filter(c => c.region === region );
@@ -19,6 +21,47 @@ const SendParcle = () => {
    
      const handelSendParcle = data =>{
             console.log(data);
+            const isDocoment = data.parcleType === 'document';
+            const isSamedistricts = data.senderDistricts === data.receiverDistricts;
+            const parcleWeight = parseFloat(data.parcleWeight);
+
+            let cost = 0;
+            if (isDocoment){
+                cost = isSamedistricts ? 60 : 80;
+            }
+            else{
+                if(parcleWeight < 3){
+                    cost = isSamedistricts ? 110 : 150;
+                }
+                else{
+                   const minCost  = isSamedistricts ? 110 : 150;
+                   const extraWeight = parcleWeight - 3;
+                   const extraCost = isSamedistricts ? extraWeight * 40 : extraWeight * 40 + 40;
+                   cost = minCost + extraCost ;
+                }
+            }
+            console.log('cost', cost);
+            Swal
+            Swal.fire({
+                title: "Are you sure?",
+                text: `You won't pay ${cost}!`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    // Swal.fire({
+                    // title: "Deleted!",
+                    // text: "Your file has been deleted.",
+                    // icon: "success"
+                    // });
+                }
+                });
+
+
      }
 
 
@@ -48,7 +91,7 @@ const SendParcle = () => {
                         </div>
                         <div className=''>
                          <label className="label font-bold">Parcel Weight (KG)</label>
-                        <input type="number" {...register('parcle-Weight')} className="input w-full" placeholder="Parcel Weight (KG)" />   
+                        <input type="number" {...register('parcleWeight')} className="input w-full" placeholder="Parcel Weight (KG)" />   
                         </div>
                         
                     </fieldset>
@@ -100,17 +143,41 @@ const SendParcle = () => {
                     {/* rechive info */}
                     <fieldset className="fieldset ">
                         <h2 className="text-4xl font-bold">Receiver Details</h2> 
-
+                            {/* name  */}
                         <label className="label font-bold mt-2">Receiver Name</label>
                         <input type="text" {...register('Rwceiver-Name')} className="input w-full" placeholder="Rwceiver Name" /> 
+                        {/* email */}
                         <label className="label font-bold mt-2">Receiver Email</label>
                         <input type="email" {...register('Receiver-email')} className="input w-full" placeholder="Receiver email" /> 
-                        <label className="label font-bold mt-2">Receiver Address</label>
+                        {/* phone number */}
+                        <label className="label font-bold mt-2">Receiver Phone No</label>
+                        <input type="number" {...register('Receiver-Phone-No')} className="input w-full" placeholder="Receiver-Phone" /
+                        >  
+                          {/* Rwceiver Regions */}
+                        <fieldset className="fieldset">
+                        {/* <legend className="fieldset-legend">Sender Regions</legend> */}
+                        <label className="label font-bold mt-2">Receiver Regions</label>
+                        <select defaultValue="Pick a Regions" {...register('receiverRegions')} className="select w-full">
+                            <option disabled={true}>Pick a Regions</option>
+                            {
+                                regions.map((r,i)=><option key={i} value={r}>{r}</option>)
+                            }                                
+                        </select>                      
+                        </fieldset>
+                         {/* sreceiver Districts */}
+                        <fieldset className="fieldset">
+                        {/* <legend className="fieldset-legend">Sender District</legend> */}
+                        <label className="label font-bold mt-2">Receiverr District</label>
+                        <select defaultValue="Pick a District" {...register('receiverDistricts')} className="select w-full">
+                            <option disabled={true}>Pick a District</option>
+                            {
+                               districtByRegions(receiverRegions).map((r,i)=><option key={i} value={r}>{r}</option>)
+                            }                                
+                        </select>                      
+                        </fieldset>
+                        {/* address */}
+                         <label className="label font-bold mt-2">Receiver Address</label>
                         <input type="text" {...register('Address')} className="input w-full" placeholder="Address" /> 
-                        <label className="label font-bold mt-2">Rwceiver Phone No</label>
-                        <input type="number" {...register('Rwceiver-Phone-No')} className="input w-full" placeholder="Rwceiver-Phone" />  
-                        <label className="label font-bold mt-2">Receiver District</label>
-                        <input type="text" {...register('YourDistrict')} className="input w-full" placeholder="Receiver District" /> 
                         <label className="label font-bold mt-2">Delivery Instruction</label>
                         <input type="text" {...register('DeliveryInstruction')} className="input w-full" placeholder="Delivery Instruction" /> 
                     </fieldset>
