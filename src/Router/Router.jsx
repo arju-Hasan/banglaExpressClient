@@ -43,7 +43,8 @@ export const router = createBrowserRouter([
     },
     {
       path: "/send-parcle",
-      element: <PrivateRoute><SendParcle /></PrivateRoute>
+      element: <PrivateRoute><SendParcle /></PrivateRoute>,
+      loader: () => fetch('/serviceCentars.json').then(res => res.json()),
     }
     ]
   },

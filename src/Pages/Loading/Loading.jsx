@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 const Loader = () => {
   return (
-    <StyledWrapper>
+    <div className='flex justify-center items-center w-full mx-auto m-8 md:m-15'>
+      <StyledWrapper>
       <div className="loader" />
     </StyledWrapper>
+    </div>
   );
 }
 
