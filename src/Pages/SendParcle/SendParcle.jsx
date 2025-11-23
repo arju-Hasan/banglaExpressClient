@@ -3,9 +3,19 @@ import Container from '../../Components/Container';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2'
+import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
+import UseAuth from '../../Hooks/UseAuth';
  
 export  const SendParcle = () => {
-    const {register, handleSubmit, formState: { error }, control, } = useForm();
+    const {register, 
+        handleSubmit, 
+        // formState: { error }, 
+        control, 
+    } = useForm();
+
+    const axiosSecure = UseAxiosSecure();
+    const {user } = UseAuth();
+
     const serviceCentars = useLoaderData();     
     const regionsDup = serviceCentars.map(c => c.region);
     const regions = [...new Set(regionsDup)];
@@ -44,7 +54,7 @@ export  const SendParcle = () => {
             Swal
             Swal.fire({
                 title: "Are you sure?",
-                text: `You won't pay ${cost}!`,
+                text: `Total cost ${cost} BDT`,
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -52,6 +62,12 @@ export  const SendParcle = () => {
                 confirmButtonText: "Yes"
                 }).then((result) => {
                 if (result.isConfirmed) {
+
+                    // save the persal data in database
+                    axiosSecure.post('/parcles', data )
+                    .then(res => {
+                        console.log("after saving parcles", res.data);
+                    })
                     
                     // Swal.fire({
                     // title: "Deleted!",
@@ -87,7 +103,7 @@ export  const SendParcle = () => {
                      <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div className=''>
                         <label className="label font-bold">Parcel Name</label>
-                        <input type="text" {...register('parcel-Name')} className="input w-full" placeholder="Parcle Name" />
+                        <input type="text" {...register('parcelName')} className="input w-full" placeholder="Parcle Name" />
                         </div>
                         <div className=''>
                          <label className="label font-bold">Parcel Weight (KG)</label>
@@ -98,18 +114,18 @@ export  const SendParcle = () => {
                 </div>
                 {/* tow colum */}
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
-                    {/* sent info */}
+                    {/* sender info */}
                     <fieldset className="fieldset ">
                         <h2 className="text-4xl font-bold">Sender Details</h2> 
                             {/* name */}
                         <label className="label font-bold mt-2">Sender Name</label>
-                        <input type="text" {...register('Sender-Name')} className="input w-full" placeholder="Sender Name" /> 
+                        <input type="text" {...register('SenderName')} defaultValue={user?.displayName} className="input w-full" placeholder="Sender Name" /> 
                             {/* email */}
                         <label className="label font-bold mt-2">Sender Email</label>
-                        <input type="email" {...register('Sender-email')} className="input w-full" placeholder="Sender email" />  
+                        <input type="email" {...register('SenderEmail')} defaultValue={user?.email} className="input w-full" placeholder="Sender email" />  
                          {/* sender phone number */}
                         <label className="label font-bold mt-2">Sender Phone No</label>
-                        <input type="number" {...register('Sender-Phone-No')} className="input w-full" placeholder="Sender-Phone" />
+                        <input type="number" {...register('SenderPhoneNo')} className="input w-full" placeholder="Sender Phone" />
 
                         {/* sender Regions */}
                         <fieldset className="fieldset">
@@ -135,7 +151,7 @@ export  const SendParcle = () => {
                         </fieldset>
                         {/* address */}
                         <label className="label font-bold mt-2">Address</label>
-                        <input type="text" {...register('Address')} className="input w-full" placeholder="Address" />
+                        <input type="text" {...register('senderAddress')} className="input w-full" placeholder="Address" />
                             {/* instruction */}
                         <label className="label font-bold mt-2">Pickup Instruction</label>
                         <input type="text" {...register('PickupInstruction')} className="input w-full" placeholder="Pickup Instructiont" /> 
@@ -145,14 +161,13 @@ export  const SendParcle = () => {
                         <h2 className="text-4xl font-bold">Receiver Details</h2> 
                             {/* name  */}
                         <label className="label font-bold mt-2">Receiver Name</label>
-                        <input type="text" {...register('Rwceiver-Name')} className="input w-full" placeholder="Rwceiver Name" /> 
+                        <input type="text" {...register('ReceiverName')} className="input w-full" placeholder="Receiver Name" /> 
                         {/* email */}
                         <label className="label font-bold mt-2">Receiver Email</label>
-                        <input type="email" {...register('Receiver-email')} className="input w-full" placeholder="Receiver email" /> 
+                        <input type="email" {...register('ReceiverEmail')} className="input w-full" placeholder="Receiver email" /> 
                         {/* phone number */}
                         <label className="label font-bold mt-2">Receiver Phone No</label>
-                        <input type="number" {...register('Receiver-Phone-No')} className="input w-full" placeholder="Receiver-Phone" /
-                        >  
+                        <input type="number" {...register('ReceiverPhoneNo')} className="input w-full" placeholder="Receiver Phone" />  
                           {/* Rwceiver Regions */}
                         <fieldset className="fieldset">
                         {/* <legend className="fieldset-legend">Sender Regions</legend> */}
@@ -177,12 +192,12 @@ export  const SendParcle = () => {
                         </fieldset>
                         {/* address */}
                          <label className="label font-bold mt-2">Receiver Address</label>
-                        <input type="text" {...register('Address')} className="input w-full" placeholder="Address" /> 
+                        <input type="text" {...register('receiverAddress')} className="input w-full" placeholder="Address" /> 
                         <label className="label font-bold mt-2">Delivery Instruction</label>
                         <input type="text" {...register('DeliveryInstruction')} className="input w-full" placeholder="Delivery Instruction" /> 
                     </fieldset>
                 </div>
-                <p className='m-4'>* PickUp Time 10am-7pm Approx.</p>
+                <p className='m-4'>* PickUp Time 10am-7pm Approx.</p>
                 <input type="submit" className='btn btn-primary m-4'  value="SendParcle" />
             </form>
             </Container>

@@ -25,6 +25,7 @@ const Navbar = () => {
     { to: "/pricing", label: "Pricing" },
     { to: "/bearider", label: "Be a Rider" },
     { to: "/send-parcle", label: "Send Parcl" },
+     ...(user ? [{ to: "dashboard/my-parcles", label: "My Parcel" }] : []),
   ];
 
   

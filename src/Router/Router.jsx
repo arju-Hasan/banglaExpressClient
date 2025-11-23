@@ -13,6 +13,8 @@ import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import Rider from "../Pages/Rider/Rider";
 import PrivateRoute from "./PrivateRoute";
 import SendParcle from "../Pages/SendParcle/SendParcle";
+import DashboardLayout from "../Layout/DashboardLayout";
+import MyParcles from "../Pages/Dashboard/MyParcles";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +65,16 @@ export const router = createBrowserRouter([
       {
         path: "Forgot",
         Component: ForgotPassword,
+      }
+    ]
+  },
+  {
+    path: 'dashboard',
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    children:[
+      {
+        path: 'my-parcles',
+        Component: MyParcles ,
       }
     ]
   },
