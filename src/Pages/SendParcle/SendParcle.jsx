@@ -51,6 +51,7 @@ export  const SendParcle = () => {
                 }
             }
             console.log('cost', cost);
+            data.cost = cost;
             Swal
             Swal.fire({
                 title: "Are you sure?",

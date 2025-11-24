@@ -28,7 +28,16 @@ const DashboardLayout = () => {
                 <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost text-primary">
                     {isOpen ? <SquareArrowLeft /> : <SquareArrowRight />}
                 </label>
-                <div className="px-4">Dashboard</div>
+                <div className="px-4 text-2xl font-bold">
+                    <span className="text-rotate">
+                    <span>
+                        <span>Dashboard</span>
+                        <span>Bangla Express</span>
+                        <span>Dashboard</span>
+                        <span>Bangla Express</span>
+                    </span>
+                    </span>
+                    </div>
                 </nav>
                 {/* Page content here */}
 
