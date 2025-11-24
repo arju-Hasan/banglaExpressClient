@@ -4,6 +4,7 @@ import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { ScanEye, SquarePen, Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const MyParcles = () => {
     const {user} = UseAuth();
@@ -59,7 +60,8 @@ const MyParcles = () => {
                     <th></th>
                     <th>Name</th>
                     <th>Cost</th>                    
-                    <th>Rechived Date</th>
+                    <th>Payment</th>                    
+                    <th>Delivary status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -72,6 +74,27 @@ const MyParcles = () => {
                             <th>{index + 1}</th>
                             <td>{p.parcelName}</td>
                             <td>({p.cost}) Taka</td>
+                            {/* <td>
+                                {
+                                    p.paymentStatus === "paid" ?
+                                    <span className='text-green-400'>Paid</span>
+                                    :
+                                    <Link to={`/dashboard/payment/${p._id}`} > <button className='btn btn-primary'>Pay</button>
+                                    
+                                    </Link>
+                                }
+                            </td> */}
+                            <td>
+                                {
+                                    p.paymentStatus === "paid" ? 
+                                    <span className='text-green-400'>Paid</span>
+                                    :
+                                    <Link to={`/dashboard/payment/${p._id}`}>
+                                        <button className='btn btn-primary hover:btn-secondary hover:text-accent btn-sm'>Pay</button>
+                                    </Link>
+                                }
+                                </td>
+
                             <td>Blue</td>
                             <td>
                                 <button className='btn btn-square hover:bg-primary'><ScanEye /></button>
