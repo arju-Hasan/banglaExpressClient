@@ -21,14 +21,27 @@ const Payment = () => {
     if(isLoading){
         <Loader />
     }
-    
+    const handelpayment = async() => {
+        const paymentInfo ={
+            cost: parcle.cost,
+            parcleId: parcle._id,
+            senderEmail: parcle.SenderEmail,
+            // parcleName: parcle.parcleName
+            parcleName: parcle.parcelName
 
-console.log(parcle);
+        }
+        const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+        console.log(res.data);
+        window.location.href = res.data.url;
+    }
+
+// console.log(parcle);
 
     return (
-        <div>
+        <div className='mx-auto text-center'>
             <h2 className='px-5 text-xl font-semibold'>Parcle name : {parcle.parcelName}</h2>
-            <button className='btn btn-primary hover:btn-secondary hover:text-accent mx-4'>Pay Now</button>
+            <p className='my-5'>please pay ${parcle.cost}</p>
+            <button onClick={handelpayment} className='btn btn-primary hover:btn-secondary hover:text-accent mx-4'>Pay Now</button>
         </div>
     );
 };

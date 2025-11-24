@@ -16,6 +16,8 @@ import SendParcle from "../Pages/SendParcle/SendParcle";
 import DashboardLayout from "../Layout/DashboardLayout";
 import MyParcles from "../Pages/Dashboard/MyParcles";
 import Payment from "../Pages/Dashboard/Payment";
+import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
+import PaymentCancelled from "../Pages/Dashboard/PaymentCancelled";
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +82,14 @@ export const router = createBrowserRouter([
       {
         path: 'payment/:parcleId',
         Component: Payment,
+      },
+      {
+        path: 'payment-success',
+        Component: PaymentSuccess,
+      },
+      {
+        path: 'payment-cancelled',
+        Component: PaymentCancelled,
       }
     ]
   },
