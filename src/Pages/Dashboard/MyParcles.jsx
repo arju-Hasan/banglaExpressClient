@@ -48,6 +48,18 @@ const MyParcles = () => {
             }
             });
     }
+      const handelpayment = async(p) => {
+        const paymentInfo ={
+            cost: p.cost,
+            parcleId: p._id,
+            senderEmail: p.SenderEmail,            
+            parcleName: p.parcelName
+
+        }
+        const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+        console.log(res.data);
+        window.location.href = res.data.url;
+    }
 
     return (
         <div className='p-4'>
@@ -87,11 +99,9 @@ const MyParcles = () => {
                             <td>
                                 {
                                     p.paymentStatus === "paid" ? 
-                                    <span className='text-green-400'>Paid</span>
-                                    :
-                                    <Link to={`/dashboard/payment/${p._id}`}>
-                                        <button className='btn btn-primary hover:btn-secondary hover:text-accent btn-sm'>Pay</button>
-                                    </Link>
+                                    <span className='btn btn-sm btn-secondary text-accent'>Paid</span>
+                                    :                                    
+                                    <button className='btn btn-primary hover:btn-secondary hover:text-accent btn-sm' onClick={()=>handelpayment(p)}>pay</button>
                                 }
                                 </td>
 

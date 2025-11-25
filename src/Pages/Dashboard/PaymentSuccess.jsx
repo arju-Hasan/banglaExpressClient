@@ -1,13 +1,26 @@
 
-import React from 'react';
-import { Link } from 'react-router';
+import React, { useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router';
+import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 
 const PaymentSuccess = () => {
+     const [searchParams] = useSearchParams();
+     const sessonId = searchParams.get('session_id')
+     const axiosSecure = UseAxiosSecure();
+    console.log(sessonId);
+
+    useEffect(()=>{
+        if(sessonId){
+            axiosSecure.patch(`/payment-success?session_id=${sessonId}`)
+            .then(res =>{
+                console.log(res.data);
+            })
+        }
+    },[sessonId, axiosSecure])
+
+
     return (
-        // <div>
-        //     <h2>Thanks payment successfull</h2>
-        //     <Link to="/">Home</Link>
-        // </div>
+        
         <div className="h-screen flex justify-center items-center text-center">
         <div>
             <h2>Thanks Your Payment Successfull</h2>
