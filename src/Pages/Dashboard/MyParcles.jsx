@@ -85,17 +85,7 @@ const MyParcles = () => {
                         <tr key={p._id || index}>
                             <th>{index + 1}</th>
                             <td>{p.parcelName}</td>
-                            <td>({p.cost}) Taka</td>
-                            {/* <td>
-                                {
-                                    p.paymentStatus === "paid" ?
-                                    <span className='text-green-400'>Paid</span>
-                                    :
-                                    <Link to={`/dashboard/payment/${p._id}`} > <button className='btn btn-primary'>Pay</button>
-                                    
-                                    </Link>
-                                }
-                            </td> */}
+                            <td>({p.cost}) Taka</td>                           
                             <td>
                                 {
                                     p.paymentStatus === "paid" ? 

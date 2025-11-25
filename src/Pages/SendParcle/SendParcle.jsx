@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '../../Components/Container';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2'
 import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 import UseAuth from '../../Hooks/UseAuth';
@@ -14,6 +14,7 @@ export  const SendParcle = () => {
     } = useForm();
 
     const axiosSecure = UseAxiosSecure();
+    const Navigate = useNavigate();
     const {user } = UseAuth();
 
     const serviceCentars = useLoaderData();     
@@ -69,22 +70,20 @@ export  const SendParcle = () => {
                     .then(res => {
                         console.log("after saving parcles", res.data);
                     })
-                    
-                    // Swal.fire({
-                    // title: "Deleted!",
-                    // text: "Your file has been deleted.",
-                    // icon: "success"
-                    // });
+                    Navigate('/dashboard/my-parcles');
+                    Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your parcle is ready pay now",
+                    showConfirmButton: false,
+                    timer: 2500
+                    });
                 }
                 });
-
-
      }
-
-
     return (
-        <div className='m-10 border'>
-            <Container className="m-4 border">
+        <div className='m-10 border rounded-2xl'>
+            <Container className="m-4 ">
             <h2 className="text-5xl font-bold">Send A Parcel</h2>
             <p className="text-2xl font-bold mt-2">Enter your parcel details</p>
             <form onSubmit={handleSubmit(handelSendParcle)} className=''>
