@@ -1,4 +1,5 @@
-import { FastForward, House, Send, Settings, SlidersHorizontal, SquareArrowLeft, SquareArrowRight } from 'lucide-react';
+import { Car, House, Send, Settings, SquareArrowLeft, SquareArrowRight } from 'lucide-react';
+import { GiCardPlay } from "react-icons/gi";
 import React, { useEffect, useState } from 'react';
 import { Link, Links, NavLink, Outlet } from 'react-router';
 
@@ -55,22 +56,34 @@ const DashboardLayout = () => {
                     <li>
                     <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
                         {/* Home icon */}
-                        <House className='my-0 text-primary' />
+                        <House className='my-2 text-primary' />
                         <span className="is-drawer-close:hidden">Homepage</span>
                     </Link>
                     </li>
 
                     {/* List item */}
                     <li>
-                        <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/my-parcles' data-tip="MyParchles">
-                        <Send className='my-2 text-primary' />
-                        <span className="is-drawer-close:hidden">My-Parchles</span>
+                        <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/send-parcle' data-tip="Send Parchle">
+                        <Send className='my-1 text-primary' />
+                        <span className="is-drawer-close:hidden">Send Parchle</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/my-parcles' data-tip="My Parchles">
+                        <Car className='my-1 text-primary' />
+                        <span className="is-drawer-close:hidden">My Parchles</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/payment-history' data-tip="Payment History">
+                        <GiCardPlay className='my-1 text-2xl text-primary' />
+                        <span className="is-drawer-close:hidden">Payment History</span>
                         </NavLink>
                     </li>
                     <li>
                     <NavLink to='/dashboard/setting' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                         {/* Settings icon */}
-                        <Settings className='my-2 text-primary' />
+                        <Settings className='my-1 text-primary' />
                         <span className="is-drawer-close:hidden">Settings</span>
                     </NavLink>
                     </li>

@@ -53,7 +53,8 @@ const MyParcles = () => {
             cost: p.cost,
             parcleId: p._id,
             senderEmail: p.SenderEmail,            
-            parcleName: p.parcelName
+            parcleName: p.parcelName,
+             customerEmail: user.email,
 
         }
         const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
