@@ -31,7 +31,7 @@ const Navbar = () => {
   
   const navLinkClasses = ({ isActive }) =>
     isActive
-      ? "bg-primary text-accent font-bold rounded-lg px-4 py-2"   
+      ? "bg-primary text-white font-semibold rounded-lg px-4 py-2"   
       : "text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 transition-all";
 
   return (

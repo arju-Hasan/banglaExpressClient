@@ -89,9 +89,9 @@ const MyParcles = () => {
                             <td>
                                 {
                                     p.paymentStatus === "paid" ? 
-                                    <span className='btn btn-sm btn-secondary text-accent'>Paid</span>
+                                    <span className='btn btn-sm btn-primary text-white'>Paid</span>
                                     :                                    
-                                    <button className='btn btn-primary hover:btn-secondary hover:text-accent btn-sm' onClick={()=>handelpayment(p)}>pay</button>
+                                    <button className='btn btn-secondary hover:btn-primary text-accent btn-sm' onClick={()=>handelpayment(p)}>pay</button>
                                 }
                                 </td>
 

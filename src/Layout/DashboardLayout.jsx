@@ -68,11 +68,11 @@ const DashboardLayout = () => {
                         </NavLink>
                     </li>
                     <li>
-                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+                    <NavLink to='/dashboard/setting' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                         {/* Settings icon */}
                         <Settings className='my-2 text-primary' />
                         <span className="is-drawer-close:hidden">Settings</span>
-                    </button>
+                    </NavLink>
                     </li>
                 </ul>
                 </div>

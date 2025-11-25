@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 
 const Banner = () => {
     const button = <>
-        <Link className='btn btn-secondary btn-warning mr-5'>Track Your Parcel</Link>
+        <Link to='dashboard/my-parcles' className='btn btn-secondary btn-warning mr-5'>Track Your Parcel</Link>
          <Link to="/bearider" className='btn btn-primary btn-info'>Be A Rider</Link>
     </>
     return (

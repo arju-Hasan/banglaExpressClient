@@ -82,8 +82,8 @@ export  const SendParcle = () => {
                 });
      }
     return (
-        <div className='m-10 border rounded-2xl'>
-            <Container className="m-4 ">
+        <div className='m-10 bg-base-200 rounded-2xl'>
+            <Container className="p-4 shadow-2xl">
             <h2 className="text-5xl font-bold">Send A Parcel</h2>
             <p className="text-2xl font-bold mt-2">Enter your parcel details</p>
             <form onSubmit={handleSubmit(handelSendParcle)} className=''>
