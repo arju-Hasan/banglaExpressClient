@@ -1,4 +1,4 @@
-import { Car, House, Send, Settings, SquareArrowLeft, SquareArrowRight } from 'lucide-react';
+import {House, PackageOpen, Receipt, Send, Settings, SquareArrowLeft, SquareArrowRight } from 'lucide-react';
 import { GiCardPlay } from "react-icons/gi";
 import React, { useEffect, useState } from 'react';
 import { Link, Links, NavLink, Outlet } from 'react-router';
@@ -70,13 +70,13 @@ const DashboardLayout = () => {
                     </li>
                     <li>
                         <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/my-parcles' data-tip="My Parchles">
-                        <Car className='my-1 text-primary' />
+                        <PackageOpen className='my-1 text-primary' />
                         <span className="is-drawer-close:hidden">My Parchles</span>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/payment-history' data-tip="Payment History">
-                        <GiCardPlay className='my-1 text-2xl text-primary' />
+                         <Receipt className='my-1 text-2xl text-primary' />
                         <span className="is-drawer-close:hidden">Payment History</span>
                         </NavLink>
                     </li>
