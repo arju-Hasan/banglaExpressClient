@@ -42,14 +42,14 @@ const [showPassword, setShowPassword] = useState(false);
         <div className='p-7 md:p-10'>
             <div className='grid gap-2 mb-2'>
                 <h2 className='text-4xl text-primary'>Welcome Back</h2>
-                <a href="" className=''>Login with ZapShift</a>                
+                <a href="" className=''>Login with Bangal Express</a>                
             </div>
             <div>
            <form onSubmit={handleSubmit(handelLogin)}>
              <fieldset className="fieldset">
                 {/* email */}
             <label className="label">Email</label>
-            <input type="email" {...register("email", {required:true})} className="input w-full" placeholder="Arju3h@gmail.com" />
+            <input type="email" {...register("email", {required:true})} className="input w-full" placeholder="arju3h@gmail.com" />
             {errors.email?.type==='required' && (
                 <p className='text-red-500'>Email name is required</p>
             )}
