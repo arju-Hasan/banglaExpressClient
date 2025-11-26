@@ -13,12 +13,13 @@ const MyParcles = () => {
     const { data: parcles = [], refetch } = useQuery({
         queryKey: ['myparcle', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/parcles?email=${user.email}`)
+            const res = await axiosSecure.get(`/parcles?email=${user?.email}`)
             return res.data;
         }
         
         
     });
+    console.log(user);
     const handelParcleDelete = id => {
             // console.log(id);
             Swal.fire({
