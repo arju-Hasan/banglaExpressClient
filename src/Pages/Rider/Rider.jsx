@@ -37,7 +37,7 @@ const Rider = () => {
                         icon: "success",
                         title: "Your application success. We Will rech to you 15 days",
                         showConfirmButton: false,
-                        timer: 2500
+                        timer: 3000
                         });
                 }
             })

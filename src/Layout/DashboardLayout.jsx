@@ -1,7 +1,8 @@
-import {House, PackageOpen, Receipt, Send, Settings, SquareArrowLeft, SquareArrowRight } from 'lucide-react';
+import {Bike, House, PackageOpen, Receipt, Send, Settings, SquareArrowLeft, SquareArrowRight } from 'lucide-react';
 import { GiCardPlay } from "react-icons/gi";
 import React, { useEffect, useState } from 'react';
 import { Link, Links, NavLink, Outlet } from 'react-router';
+import Container from '../Components/Container';
 
 const DashboardLayout = () => {
    const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +22,7 @@ const DashboardLayout = () => {
 
     return (
         <div>
+            <Container>
             <div className="drawer md:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
@@ -80,6 +82,12 @@ const DashboardLayout = () => {
                         <span className="is-drawer-close:hidden">Payment History</span>
                         </NavLink>
                     </li>
+                     <li>
+                        <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" to='/dashboard/approve-rider' data-tip="Approve-Rider">
+                          <Bike className='my-1 text-2xl text-primary' />
+                        <span className="is-drawer-close:hidden">Approve-Rider</span>
+                        </NavLink>
+                    </li>
                     <li>
                     <NavLink to='/dashboard/setting' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                         {/* Settings icon */}
@@ -91,6 +99,7 @@ const DashboardLayout = () => {
                 </div>
             </div>
             </div>
+        </Container>
         </div>
     );
 };
