@@ -7,6 +7,7 @@ import SocialLogin from './SocialLogin/SocialLogin';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react';
+import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 
 
 const Register = () => {
@@ -15,6 +16,7 @@ const Register = () => {
     const {registerUser, userUpdateProfile} = UseAuth();
     const location = useLocation();
     const Navigate = useNavigate();
+    const axiosSecure =UseAxiosSecure();
     
 
     const [showPassword, setShowPassword] = useState(false); 
@@ -38,12 +40,26 @@ const Register = () => {
             const Image_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_Key}`
             axios.post(Image_Api_Url, formData)
             .then( res =>{
-                console.log("After image uploding", res.data.data.display_url);
+                const photourl = res.data.data.display_url;
+
+              // create user in the database
+              const userInfo = {
+                email: data.email,
+                displayName: data.name,
+                photoURL: photourl,
+              }
+              axiosSecure.post('/users', userInfo)
+              .then(res =>{
+                if(res.data.insertedId){
+                  console.log('after created user in the database');
+                }
+              })
 
                 // update user profile fairbase
                 const userProfile = {
-                    displayName : data.name,
-                    photoURL: res.data.data.display_url,
+                  email: data.email,
+                  displayName : data.name,
+                  photoURL: photourl,
                 }
                 userUpdateProfile(userProfile)
                 .then(() => {

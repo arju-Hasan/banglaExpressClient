@@ -18,14 +18,16 @@ const UseAxiosSecure = () => {
         // interceptor request
     const interceptor = axiosSecure.interceptors.request.use( async (config) => {
         //this is working
-    config.headers.Authorization = `Bearer ${user.accessToken}`
+    // config.headers.Authorization = `Bearer ${user.accessToken}`
+
         //another one
     // config.headers.Authorization = `Bearer ${await user.getIdToken()}`
+
 //another one
-    // if (user) {
-    //     const token = await user.getIdToken();
-    //     config.headers.authorization = `Bearer ${token}`;
-    //   }
+    if (user) {
+        const token = await user.getIdToken();
+        config.headers.authorization = `Bearer ${token}`;
+      }
 
      return config;
   })
@@ -50,7 +52,7 @@ const UseAxiosSecure = () => {
       axiosSecure.interceptors.request.eject(interceptor);
       axiosSecure.interceptors.response.eject(resinterceptor)
     };
-    },[user])
+    },[user, logOut, navigate])
 
     return axiosSecure;
 };

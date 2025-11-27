@@ -32,6 +32,7 @@ console.log(payments);
                     <th>Amount</th>
                     <th>Tracking Id</th>
                     <th>transaction Id</th>
+                    <th>Paid Time</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -41,9 +42,10 @@ console.log(payments);
                 <tr key={p._id}>
                     <th>{i+1}</th>
                     <td>{p.parcleName}</td>
-                    <td>${p.amount}(paid)</td>
+                    <td>BDT {p.amount} (paid)</td>
                     <td>{p.trackingId}</td>
                     <td>{p.transactionId}</td>
+                    <td>{p.paidAt}</td>
                     <td className='btn btn-primary btn-sm hover:btn-secondary hover:text-accent'>View</td>
                 </tr>
                 )

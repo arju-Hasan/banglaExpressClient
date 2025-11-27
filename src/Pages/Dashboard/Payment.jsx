@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
@@ -18,9 +18,8 @@ const Payment = () => {
     })
     if (!parcle) return <p>No parcel found</p>;
 
-    if(isLoading){
-        <Loader />
-    }
+   if(isLoading) return <Loader />;
+
     const handelpayment = async() => {
         const paymentInfo ={
             cost: parcle.cost,
@@ -35,7 +34,7 @@ const Payment = () => {
         window.location.href = res.data.url;
     }
 
-// console.log(parcle);
+console.log(parcle);
 
     return (
         <div className='mx-auto text-center'>
