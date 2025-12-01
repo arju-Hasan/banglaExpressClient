@@ -104,7 +104,7 @@ const Rider = () => {
                     </fieldset>                        
                 </div>
                 <p className='m-4'>* PickUp Time 10am-7pm Approx.</p>
-                <input type="submit" className='btn btn-primary m-4 w-full'  value="Submit" />
+                <input type="submit" className='btn btn-sm btn-primary hover:bg-accent m-4 w-full'  value="Submit" />
             </form>
 
             </div>

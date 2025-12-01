@@ -20,6 +20,7 @@ import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentCancelled from "../Pages/Dashboard/PaymentCancelled";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 import ApproveRder from "../Pages/Dashboard/ApproveRder";
+import Game from "../Pages/Game/Game";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
     {
       path: "/services",
       Component : Services,
+    },
+    {
+      path: '/game',
+      Component: Game ,
     },
     {
       path: "/bearider",

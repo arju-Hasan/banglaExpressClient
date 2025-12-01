@@ -22,7 +22,7 @@ const Navbar = () => {
     { to: "/services", label: "Services" },
     { to: "/coverage", label: "Coverage" },
     { to: "/aboutus", label: "About Us" },
-    { to: "/pricing", label: "Pricing" },
+    { to: "/game", label: "Game" },
     { to: "/bearider", label: "Be a Rider" },
     { to: "/send-parcle", label: "Send Parcl" },
      ...(user ? [{ to: "dashboard/my-parcles", label: "My Parcel" }] : []),
@@ -31,8 +31,8 @@ const Navbar = () => {
   
   const navLinkClasses = ({ isActive }) =>
     isActive
-      ? "bg-primary text-white font-semibold rounded-lg px-4 py-2"   
-      : "text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-4 py-2 transition-all";
+      ? "bg-primary text-white font-semibold rounded-lg px-2 py-1"   
+      : "text-gray-700 hover:bg-primary/10 hover:text-primary rounded-lg px-2 py-1 transition-all";
 
   return (
     <div className="sticky top-0 z-50 bg-base-100 shadow-sm">
@@ -64,7 +64,7 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal gap-0 px-0">
+            <ul className="menu menu-horizontal gap-2 pr-5">
               {navItems.map((item) => (
                 <li key={item.to}>
                   <NavLink to={item.to} className={navLinkClasses}>
@@ -78,10 +78,10 @@ const Navbar = () => {
           {/* Right Button */}
           <div className="navbar-end">
             {
-              user? <Link onClick={HandelLogOut} to="login" className="btn btn-primary hover:bg-accent">LogOut</Link> : 
-              <Link to="login" className="btn btn-primary hover:bg-accent">Login</Link>
+              user? <Link onClick={HandelLogOut} to="login" className="btn btn-sm btn-primary hover:bg-accent">LogOut</Link> : 
+              <Link to="login" className="btn btn-sm btn-primary hover:bg-accent">Login</Link>
             }
-            <Link to="/bearider" className="btn btn-secondary hover:text-white hover:bg-accent text-accent mx-4">Be a Rider</Link>
+            <Link to="/bearider" className="btn btn-sm btn-secondary hover:text-white hover:bg-accent text-accent mx-4">Be a Rider</Link>
           </div>
 
         </div>

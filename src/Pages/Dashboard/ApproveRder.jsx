@@ -1,7 +1,7 @@
 import React from 'react';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { Trash2 } from 'lucide-react';
+import { Trash2, View } from 'lucide-react';
 import { MdPersonAdd } from "react-icons/md";
 import { IoPersonRemoveSharp } from "react-icons/io5";
 import Swal from 'sweetalert2';
@@ -15,11 +15,13 @@ const ApproveRder = () => {
             return(res.data)
         }
     });
+    const [selectedRider, setSelectedRider] = React.useState(null);
     const updateRiderStatus = (rider, status) => {
         const updateInfo = {status: status, email: rider.email }
         axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
         .then(res =>{
-            if(res.data.modifiedCount){
+            // res.data.modifiedCount > 0 || res.data?.success || res.data?.acknowledged
+            if(res.data.modifiedCount > 0 || res.data?.success || res.data?.acknowledged){
                 refetch();
                 Swal.fire({
                 position: "top-end",
@@ -31,13 +33,13 @@ const ApproveRder = () => {
             }
         })
     }
-     
+     const handelRejctionRider = rider => {
+        updateRiderStatus(rider, 'rejction')
+    } 
     const handelApproveRider = rider => {
       updateRiderStatus(rider, 'approved')        
     }
-    const handelRejctionRider = rider => {
-        updateRiderStatus(rider, 'rejction')
-    }
+   
     const handelRiderDelete = id => {     
          axiosSecure.delete(`/riders/${id}`)
         .then(res =>{
@@ -65,8 +67,7 @@ const ApproveRder = () => {
                     <th>Rider Email</th>
                     <th>Districts</th>                    
                     <th>Status</th>                    
-                    <th>BE A Rider</th>                    
-                    
+                    <th>BE A Rider</th>                   
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -74,7 +75,6 @@ const ApproveRder = () => {
                 {/* row 1 */}
                {
                     riders.map((r, index) => (
-
                         <tr key={r._id || index}>
                             <th>{index + 1}</th>
                             <td>{r.Name}</td>
@@ -93,18 +93,49 @@ const ApproveRder = () => {
                                 )}
                                 </td>                            
                             <td>
-                                <button onClick={()=> handelApproveRider(r)} className='btn btn-square hover:bg-primary'><MdPersonAdd className='text-3xl' /></button>
+                            {/* // modal section */}
+                            <span 
+                                className="btn"
+                                onClick={() => {
+                                    setSelectedRider(r);
+                                    document.getElementById('modal').showModal();
+                                }}
+                                >
+                                <View />
+                                </span>
 
-                                <button onClick={()=> handelRejctionRider(r)} className='btn btn-square hover:bg-primary mx-2'> <IoPersonRemoveSharp className='text-2xl' /></button>
+                                        <dialog id="modal" className="modal modal-bottom sm:modal-middle">
+                                        <div className="modal-box">
+                                            {selectedRider && (<>                                         
+                                                <h3 className="font-bold text-lg">Name: {selectedRider.Name}</h3>
+                                                <p>Email: {selectedRider.email}</p>
+                                                <p>Phone: {selectedRider.PhoneNo}</p>
+                                                <p>District: {selectedRider.Districts}</p>
+                                                <p>Address: {selectedRider.Address}</p>
+                                                <p>NID: {selectedRider.NID}</p>
+                                                <p>Bike Number: {selectedRider.BikeNumber}</p>
+                                                <p>Licence Number: {selectedRider.licenceNumber}</p>
+                                            </>                                   
+                                            )}
+                                            <div className="modal-action">
+                                            <form method="dialog">
+                                                <button className="btn">Close</button>
+                                            </form>
+                                            </div>
+                                        </div>
+                                        </dialog>
+
+                            {/* modal */}
+                                <button onClick={()=> handelApproveRider(r)} className='btn btn-square hover:bg-primary'> <MdPersonAdd className='text-3xl' /> </button>
+
+                                <button onClick={()=> handelRejctionRider(r)} className='btn btn-square hover:bg-primary mx-2'> <IoPersonRemoveSharp className='text-2xl' />
+                                </button>
 
                                 <button onClick={()=> handelRiderDelete(r._id)} className='btn btn-square hover:bg-primary'><Trash2 /></button>
                             </td>
                         </tr>
                     ))
-                }
-                {/* onClick={()=>handelpayment(p)} */}
-                {/* onClick={()=> handelParcleDelete(p._id)} */}
-               
+                }               
                 </tbody>
             </table>
             </div>
